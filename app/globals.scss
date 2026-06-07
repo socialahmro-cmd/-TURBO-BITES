@@ -1,0 +1,113 @@
+@import "bootstrap/scss/bootstrap";
+
+:root {
+  /* Crisp Dark Theme (International Standard) */
+  --bs-primary: #E4002B;     /* Turbo Red (KFC Style) */
+  --bs-secondary: #F8F9FA;   /* Light Gray */
+  --bs-dark: #111111;        /* Midnight Slate */
+  --bs-body-bg: #111111;     
+  --bs-body-color: #F8F9FA;
+  
+  --card-bg: #1A1A1A;        /* Solid Charcoal */
+  --card-border: #2A2A2A;    /* Sharp Border */
+}
+
+body {
+  font-family: var(--font-barlow), sans-serif;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  min-height: 100vh;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Custom Utilities */
+.text-ember { color: var(--bs-primary) !important; }
+.text-amber { color: var(--bs-secondary) !important; }
+.bg-midnight { background-color: var(--bs-dark) !important; }
+
+/* Flat Solid Elements */
+.solid-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+.solid-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.solid-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+  border-color: var(--bs-primary);
+}
+
+/* Search Enhancements */
+.search-container {
+  transition: all 0.3s ease;
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+}
+.search-container:focus-within {
+  border-color: var(--bs-primary) !important;
+  box-shadow: 0 0 0 4px rgba(228, 0, 43, 0.2) !important;
+}
+.search-input {
+  background: transparent !important;
+}
+.search-input::placeholder, .cart-input::placeholder {
+  color: #666666 !important;
+}
+.search-input:focus, .cart-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(228, 0, 43, 0.5); }
+  70% { box-shadow: 0 0 0 12px rgba(228, 0, 43, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(228, 0, 43, 0); }
+}
+
+.pulse-btn {
+  animation: pulseGlow 2s infinite;
+}
+
+/* Font Utilities */
+.font-bebas { font-family: var(--font-bebas), sans-serif; }
+.font-barlow { font-family: var(--font-barlow), sans-serif; }
+.font-barlow-cond { font-family: var(--font-barlow-cond), sans-serif; }
+
+/* Custom Overrides */
+.btn-amber {
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
+  color: #000;
+}
+.btn-amber:hover {
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
+  color: #000;
+}
+.btn-ember {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #fff;
+  font-weight: bold;
+}
+.btn-ember:hover {
+  background-color: #cc0026;
+  border-color: #cc0026;
+  color: #fff;
+}
+.btn-outline-amber {
+  color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
+}
+.btn-outline-amber:hover {
+  background-color: var(--bs-secondary);
+  color: #000;
+}
