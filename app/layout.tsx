@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   title: "Turbo Bites | Attock's Finest Fast Food",
   description: "Experience flavor at max speed! Crave-worthy fast food prepared fresh every single night. Order Pizza, Burgers, Wraps, Fries, and more in Attock.",
   keywords: "fast food, pizza, burger, attock, delivery, turbo bites",
+  icons: {
+    icon: "/turbo-bites-logo.svg",
+    shortcut: "/turbo-bites-logo.svg",
+    apple: "/turbo-bites-logo.svg",
+  },
   openGraph: {
     title: "Turbo Bites | Attock's Finest Fast Food",
     description: "Experience flavor at max speed! Crave-worthy fast food prepared fresh every single night.",
@@ -17,6 +22,20 @@ export const metadata: Metadata = {
     siteName: "Turbo Bites",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/turbo-bites-logo.svg",
+        width: 1200,
+        height: 630,
+        alt: "Turbo Bites Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Turbo Bites | Attock's Finest Fast Food",
+    description: "Experience flavor at max speed! Crave-worthy fast food prepared fresh every single night.",
+    images: ["/turbo-bites-logo.svg"],
   },
 };
 
@@ -30,6 +49,7 @@ export default function RootLayout({
     "@type": "Restaurant",
     "name": "Turbo Bites",
     "description": "Experience flavor at max speed! Crave-worthy fast food prepared fresh every single night.",
+    "image": "https://turbo-bites.netlify.app/turbo-bites-logo.svg",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Kamra Road",

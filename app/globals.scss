@@ -1,15 +1,15 @@
 @import "bootstrap/scss/bootstrap";
 
 :root {
-  /* Crisp Dark Theme (International Standard) */
-  --bs-primary: #E4002B;     /* Turbo Red (KFC Style) */
-  --bs-secondary: #F8F9FA;   /* Light Gray */
-  --bs-dark: #111111;        /* Midnight Slate */
-  --bs-body-bg: #111111;     
+  /* Turbo Orange Theme */
+  --bs-primary: #FF5A00;     /* Turbo Orange */
+  --bs-secondary: #FFB800;   /* Golden Yellow */
+  --bs-dark: #120e0c;        /* Warm Midnight Slate */
+  --bs-body-bg: #120e0c;     
   --bs-body-color: #F8F9FA;
   
-  --card-bg: #1A1A1A;        /* Solid Charcoal */
-  --card-border: #2A2A2A;    /* Sharp Border */
+  --card-bg: #1c1511;        /* Solid Warm Charcoal */
+  --card-border: #30231d;    /* Sharp Warm Border */
 }
 
 body {

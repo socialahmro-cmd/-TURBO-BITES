@@ -301,11 +301,8 @@ export default function Home() {
                 <button className="btn btn-link text-light d-lg-none p-0 me-1 border-0 shadow-none" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                    <FaBars className="fs-4" />
                 </button>
-                <a className="navbar-brand font-bebas fs-3 fs-md-2 m-0 d-flex align-items-center gap-1 gap-md-2" href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-                  <div className="bg-ember text-white rounded-circle d-flex align-items-center justify-content-center" style={{ width: '32px', height: '32px', fontSize: '0.9rem' }}>🍔</div>
-                  <span className="fw-bold tracking-wide" style={{ letterSpacing: '1px' }}>
-                     <span className="text-ember">TURBO</span> <span className="text-white">BITES</span>
-                  </span>
+                <a className="navbar-brand m-0" href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+                  <img src="/turbo-bites-logo.svg" alt="Turbo Bites Fast Food" style={{ height: '55px', objectFit: 'contain' }} />
                 </a>
              </div>
              
@@ -542,7 +539,7 @@ export default function Home() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             className="rounded-4 p-3 mb-5 shadow-sm d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 position-relative overflow-hidden"
-            style={{ background: 'linear-gradient(135deg, rgba(228,0,43,0.1) 0%, rgba(228,0,43,0.02) 100%)', border: '1px solid rgba(228,0,43,0.2)' }}
+            style={{ background: 'linear-gradient(135deg, rgba(255,90,0,0.15) 0%, rgba(255,90,0,0.02) 100%)', border: '1px solid rgba(255,90,0,0.2)' }}
          >
             {/* Animated background SVG effect */}
             <motion.svg className="position-absolute top-0 end-0 opacity-25" width="200" height="200" viewBox="0 0 200 200" fill="none" animate={{ rotate: 360 }} transition={{ duration: 50, repeat: Infinity, ease: "linear" }} style={{ pointerEvents: 'none', right: '-50px', top: '-50px' }}>
@@ -560,8 +557,8 @@ export default function Home() {
                   <FaClock className="fs-5" />
                </motion.div>
                <div>
-                  <h5 className="font-barlow fw-bold text-dark mb-0 text-uppercase">High Demand!</h5>
-                  <p className="text-muted small mb-0 fw-bold">Order now to guarantee quick delivery</p>
+                  <h5 className="font-barlow fw-bold text-light mb-0 text-uppercase">High Demand!</h5>
+                  <p className="text-light opacity-75 small mb-0 fw-bold">Order now to guarantee quick delivery</p>
                </div>
             </div>
 
@@ -569,7 +566,7 @@ export default function Home() {
                <div className="font-bebas text-ember display-5 lh-1 mb-1" style={{ letterSpacing: '2px' }}>
                   {Math.floor(fomoSeconds / 60).toString().padStart(2, '0')}:{(fomoSeconds % 60).toString().padStart(2, '0')}
                </div>
-               <div className="text-uppercase fw-bold small text-dark opacity-50" style={{ letterSpacing: '1px' }}>Offer Expires In</div>
+               <div className="text-uppercase fw-bold small text-light opacity-50" style={{ letterSpacing: '1px' }}>Offer Expires In</div>
             </div>
          </motion.div>
 
