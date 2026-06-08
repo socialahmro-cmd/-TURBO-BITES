@@ -367,7 +367,8 @@ export default function Home() {
                   { name: 'Wraps', id: 'section-wraps', iconId: 'w', items: menuData.wraps },
                   { name: 'Fries', id: 'section-fries', iconId: 'f', items: menuData.fries },
                   { name: 'Parathas', id: 'section-parathas', iconId: 'pr', items: menuData.parathas },
-                  { name: 'Pasta', id: 'section-pasta', iconId: 'ps', items: menuData.pasta }
+                  { name: 'Pasta', id: 'section-pasta', iconId: 'ps', items: menuData.pasta },
+                  { name: 'Deals', id: 'section-deals', iconId: 'd', items: menuData.deals }
                 ].map((topCat) => (
                    <div key={topCat.name} className="position-relative" onMouseEnter={() => setHoveredCategory(topCat.name)} onMouseLeave={() => setHoveredCategory(null)}>
                       <a href="#" className="text-light text-decoration-none nav-link-hover d-flex align-items-center gap-1 py-3" onClick={(e) => { e.preventDefault(); handleCategoryClick(topCat.name); }}>
@@ -409,9 +410,6 @@ export default function Home() {
                       </AnimatePresence>
                    </div>
                 ))}
-                <div className="position-relative">
-                   <a href="#" className="text-light text-decoration-none nav-link-hover py-3 d-block" onClick={(e) => { e.preventDefault(); handleCategoryClick('Deals'); }}>DEALS</a>
-                </div>
              </div>
 
              <div className="d-flex align-items-center gap-1 gap-md-3">
