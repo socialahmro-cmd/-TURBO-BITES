@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaShoppingCart, FaMapMarkerAlt, FaClock, FaTimes, FaPlus, FaMinus, FaTrash, FaSearch, FaFrown, FaArrowUp, FaBars, FaArrowLeft, FaArrowRight, FaMicrophone } from 'react-icons/fa';
 import { menuData } from '../data/menu';
+import { AnimatedFoodIcon } from './components/AnimatedFoodIcon';
 
 const formatSize = (s: string) => {
    const m: Record<string, string> = { 'S': 'Small', 'M': 'Medium', 'L': 'Large', 'XL': 'Extra Large', 'Half': 'Half', 'Full': 'Full' };
@@ -31,8 +32,11 @@ const ProductCard = ({ item, setCart, setToastMessage, addToCart }: any) => {
                {/* Subtle red top accent for brand feel */}
                <div className="position-absolute top-0 start-0 w-100 bg-ember" style={{ height: '4px', top: '-1.5rem', left: '-1.5rem', width: 'calc(100% + 3rem)' }}></div>
                
-               <div className="d-flex justify-content-between align-items-start mb-2 mt-2">
-                 <h4 className="font-barlow text-white fw-bold m-0 fs-4 tracking-tight">{item.emoji} {item.name}</h4>
+               <div className="d-flex justify-content-center mb-3">
+                  <AnimatedFoodIcon categoryId={item.id} />
+               </div>
+               <div className="d-flex justify-content-between align-items-start mb-2">
+                 <h4 className="font-barlow text-white fw-bold m-0 fs-4 tracking-tight">{item.name}</h4>
                </div>
                {item.desc && <p className="text-light opacity-75 small mb-4 flex-grow-1" style={{ lineHeight: '1.5' }}>{item.desc}</p>}
                
