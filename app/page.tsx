@@ -363,7 +363,7 @@ export default function Home() {
              <div className="d-none d-lg-flex gap-4 font-barlow-cond fw-bold text-uppercase position-absolute top-50 start-50 translate-middle" style={{ fontSize: '1.2rem', letterSpacing: '1px' }}>
                 <div className="position-relative" onMouseEnter={() => setIsMegaMenuOpen(true)} onMouseLeave={() => setIsMegaMenuOpen(false)}>
                    <a href="#" className="text-light text-decoration-none nav-link-hover d-flex align-items-center gap-1" onClick={(e) => { e.preventDefault(); }}>
-                      MENU
+                      CATEGORIES
                    </a>
                    {/* Mega Menu Dropdown */}
                    <AnimatePresence>
