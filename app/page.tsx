@@ -102,7 +102,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
-  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -361,53 +361,57 @@ export default function Home() {
              
              {/* Desktop Centered Links */}
              <div className="d-none d-lg-flex gap-4 font-barlow-cond fw-bold text-uppercase position-absolute top-50 start-50 translate-middle" style={{ fontSize: '1.2rem', letterSpacing: '1px' }}>
-                <div className="position-relative" onMouseEnter={() => setIsMegaMenuOpen(true)} onMouseLeave={() => setIsMegaMenuOpen(false)}>
-                   <a href="#" className="text-light text-decoration-none nav-link-hover d-flex align-items-center gap-1" onClick={(e) => { e.preventDefault(); }}>
-                      CATEGORIES
-                   </a>
-                   {/* Mega Menu Dropdown */}
-                   <AnimatePresence>
-                      {isMegaMenuOpen && (
-                         <motion.div 
-                            initial={{ opacity: 0, y: 15 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 15 }}
-                            transition={{ duration: 0.2 }}
-                            className="position-absolute start-50 translate-middle-x mt-3 solid-panel rounded-4 p-4 shadow-lg border"
-                            style={{ width: '600px', borderColor: 'rgba(255,255,255,0.1)', cursor: 'default' }}
-                         >
-                            <div className="row g-3">
-                               {[
-                                 { name: 'Pizza', id: 'section-pizzas', iconId: 'p' },
-                                 { name: 'Burgers', id: 'section-burgers', iconId: 'b' },
-                                 { name: 'Wraps', id: 'section-wraps', iconId: 'w' },
-                                 { name: 'Fries', id: 'section-fries', iconId: 'f' },
-                                 { name: 'Parathas', id: 'section-parathas', iconId: 'pr' },
-                                 { name: 'Pasta', id: 'section-pasta', iconId: 'ps' }
-                               ].map((cat) => (
-                                  <div className="col-4 text-center" key={cat.name}>
-                                     <motion.div 
-                                        whileHover={{ scale: 1.05, borderColor: '#E4002B' }}
-                                        className="p-3 rounded-3 border"
-                                        style={{ cursor: 'pointer', borderColor: 'rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.3)' }}
-                                        onClick={() => {
-                                           handleCategoryClick(cat.name);
-                                           setIsMegaMenuOpen(false);
-                                        }}
-                                     >
-                                        <div className="d-flex justify-content-center mb-2">
-                                           <AnimatedFoodIcon categoryId={cat.iconId} itemName="Generic" size={60} />
-                                        </div>
-                                        <div className="text-white text-uppercase" style={{ fontSize: '0.9rem' }}>{cat.name}</div>
-                                     </motion.div>
-                                  </div>
-                               ))}
-                            </div>
-                         </motion.div>
-                      )}
-                   </AnimatePresence>
+                {[
+                  { name: 'Pizza', id: 'section-pizzas', iconId: 'p', items: menuData.pizzas },
+                  { name: 'Burgers', id: 'section-burgers', iconId: 'b', items: menuData.burgers },
+                  { name: 'Wraps', id: 'section-wraps', iconId: 'w', items: menuData.wraps },
+                  { name: 'Fries', id: 'section-fries', iconId: 'f', items: menuData.fries },
+                  { name: 'Parathas', id: 'section-parathas', iconId: 'pr', items: menuData.parathas },
+                  { name: 'Pasta', id: 'section-pasta', iconId: 'ps', items: menuData.pasta }
+                ].map((topCat) => (
+                   <div key={topCat.name} className="position-relative" onMouseEnter={() => setHoveredCategory(topCat.name)} onMouseLeave={() => setHoveredCategory(null)}>
+                      <a href="#" className="text-light text-decoration-none nav-link-hover d-flex align-items-center gap-1 py-3" onClick={(e) => { e.preventDefault(); handleCategoryClick(topCat.name); }}>
+                         {topCat.name.toUpperCase()}
+                      </a>
+                      {/* Mega Menu Dropdown */}
+                      <AnimatePresence>
+                         {hoveredCategory === topCat.name && (
+                            <motion.div 
+                               initial={{ opacity: 0, y: 15 }}
+                               animate={{ opacity: 1, y: 0 }}
+                               exit={{ opacity: 0, y: 15 }}
+                               transition={{ duration: 0.2 }}
+                               className="position-absolute start-50 translate-middle-x solid-panel rounded-4 p-4 shadow-lg border"
+                               style={{ top: '100%', width: topCat.items.length > 4 ? '850px' : '600px', borderColor: 'rgba(255,255,255,0.1)', cursor: 'default' }}
+                            >
+                               <div className="row g-3">
+                                  {topCat.items.map((item) => (
+                                     <div className="col-3 text-center" key={item.id}>
+                                        <motion.div 
+                                           whileHover={{ scale: 1.05, borderColor: '#E4002B' }}
+                                           className="p-2 rounded-3 border h-100 d-flex flex-column justify-content-center"
+                                           style={{ cursor: 'pointer', borderColor: 'rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.3)' }}
+                                           onClick={() => {
+                                              handleCategoryClick(topCat.name);
+                                              setHoveredCategory(null);
+                                           }}
+                                        >
+                                           <div className="d-flex justify-content-center mb-1">
+                                              <AnimatedFoodIcon categoryId={topCat.iconId} itemName={item.name} size={60} />
+                                           </div>
+                                           <div className="text-white mt-2" style={{ fontSize: '0.8rem', lineHeight: '1.2' }}>{item.name}</div>
+                                        </motion.div>
+                                     </div>
+                                  ))}
+                               </div>
+                            </motion.div>
+                         )}
+                      </AnimatePresence>
+                   </div>
+                ))}
+                <div className="position-relative">
+                   <a href="#" className="text-light text-decoration-none nav-link-hover py-3 d-block" onClick={(e) => { e.preventDefault(); handleCategoryClick('Deals'); }}>DEALS</a>
                 </div>
-                <a href="#" className="text-light text-decoration-none nav-link-hover" onClick={(e) => { e.preventDefault(); handleCategoryClick('Deals'); }}>Deals</a>
              </div>
 
              <div className="d-flex align-items-center gap-1 gap-md-3">
