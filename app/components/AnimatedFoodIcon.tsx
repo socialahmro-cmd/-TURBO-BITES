@@ -495,38 +495,95 @@ const PastaIcon = ({ name, size }: { name: string, size: number }) => {
   );
 };
 
-const DealIcon = ({ name, size }: { name: string, size: number }) => (
-  <svg width={size} height={size} viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
-     <DropShadow />
-     <motion.g
-       animate={{ scale: [1, 1.15, 1], rotate: [0, 10, 0, -10, 0] }}
-       transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-       style={{ transformOrigin: "center" }}
-     >
-       <motion.path 
-          d="M 50 0 L 60 25 L 85 15 L 70 40 L 100 50 L 70 60 L 85 85 L 60 75 L 50 100 L 40 75 L 15 85 L 30 60 L 0 50 L 30 40 L 15 15 L 40 25 Z" 
-          fill="#D0021B" 
-          animate={{ rotate: [0, 360] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "center" }}
-       />
-       <motion.path 
-          d="M 50 10 L 58 30 L 80 22 L 65 42 L 90 50 L 65 58 L 80 78 L 58 70 L 50 90 L 42 70 L 20 78 L 35 58 L 10 50 L 35 42 L 20 22 L 42 30 Z" 
-          fill="#F5A623" 
-          animate={{ rotate: [360, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          style={{ transformOrigin: "center" }}
-       />
-       <circle cx="50" cy="50" r="22" fill="#F8E71C" stroke="#FFFFFF" strokeWidth="3" />
-       
-       <text x="50" y="52" fontFamily="Impact, Arial Black, sans-serif" fontSize="22" fontWeight="900" fill="#D0021B" textAnchor="middle" dominantBaseline="middle" style={{ letterSpacing: '1px' }}>HOT</text>
-       
-       <motion.circle cx="20" cy="20" r="3" fill="#FFF" animate={{ scale: [0, 1.5, 0] }} transition={{ duration: 1, repeat: Infinity }} />
-       <motion.circle cx="80" cy="80" r="3" fill="#FFF" animate={{ scale: [0, 1.5, 0] }} transition={{ duration: 1.2, repeat: Infinity, delay: 0.5 }} />
-       <motion.circle cx="85" cy="30" r="2" fill="#FFF" animate={{ scale: [0, 1.5, 0] }} transition={{ duration: 0.8, repeat: Infinity, delay: 0.2 }} />
-     </motion.g>
-  </svg>
+const DrinkIcon = () => (
+   <motion.g animate={{ y: [0, -2, 0] }} transition={{ repeat: Infinity, duration: 2 }}>
+      <path d="M 35 40 L 65 40 L 60 90 L 40 90 Z" fill="#E4002B" />
+      <path d="M 35 40 L 65 40 L 62 60 L 38 60 Z" fill="#C00020" />
+      <path d="M 32 35 L 68 35 L 65 40 L 35 40 Z" fill="#FFF" />
+      <motion.rect 
+         x="48" y="10" width="4" height="25" fill="#FFF" 
+         animate={{ rotate: [-5, 5, -5], transformOrigin: "50px 35px" }} 
+         transition={{ repeat: Infinity, duration: 3 }}
+      />
+      <rect x="48" y="10" width="10" height="4" fill="#FFF" />
+      <circle cx="45" cy="50" r="2" fill="#FFF" opacity="0.5" />
+      <circle cx="55" cy="70" r="1.5" fill="#FFF" opacity="0.3" />
+      <circle cx="42" cy="80" r="2" fill="#FFF" opacity="0.4" />
+   </motion.g>
 );
+
+const ChickenIcon = () => (
+   <motion.g animate={{ rotate: [-3, 3, -3] }} transition={{ repeat: Infinity, duration: 2 }} style={{ transformOrigin: "50px 50px" }}>
+      <path d="M 40 40 Q 20 50 30 80 Q 50 95 70 80 Q 90 50 60 40 Z" fill="#D2691E" />
+      <path d="M 45 45 Q 30 55 35 75" fill="none" stroke="#A0522D" strokeWidth="2" strokeLinecap="round" />
+      <path d="M 50 40 L 45 20 Q 40 10 50 15 Q 60 10 55 20 L 50 40 Z" fill="#F5DEB3" />
+      <g transform="translate(10, -20) scale(0.6)"><SteamGroup /></g>
+   </motion.g>
+);
+
+const DealIcon = ({ name, size }: { name: string, size: number }) => {
+   const lower = name.toLowerCase();
+   let items: React.ReactNode[] = [];
+   
+   if (lower.includes('fried deal 1') || lower.includes('fried deal 3')) {
+      items = [
+         <g key="b1" transform="scale(0.55) translate(10, 50)"><BurgerIcon name="generic" size={100} /></g>,
+         <g key="f1" transform="scale(0.5) translate(100, 50)"><FriesIcon name="generic" size={100} /></g>,
+         <g key="d1" transform="scale(0.45) translate(60, -10)"><DrinkIcon /></g>
+      ];
+   } else if (lower.includes('fried deal 2') || lower.includes('fried deal 4')) {
+      items = [
+         <g key="b1" transform="scale(0.45) translate(0, 70)"><BurgerIcon name="generic" size={100} /></g>,
+         <g key="b2" transform="scale(0.45) translate(50, 40)"><BurgerIcon name="generic" size={100} /></g>,
+         <g key="f1" transform="scale(0.45) translate(110, 60)"><FriesIcon name="generic" size={100} /></g>,
+         <g key="d1" transform="scale(0.4) translate(40, -10)"><DrinkIcon /></g>,
+         <g key="d2" transform="scale(0.4) translate(130, -10)"><DrinkIcon /></g>
+      ];
+   } else if (lower.includes('fried deal 5') || lower.includes('fried deal 6')) {
+      items = [
+         <g key="b1" transform="scale(0.5) translate(10, 60)"><BurgerIcon name="generic" size={100} /></g>,
+         <g key="c1" transform="scale(0.5) translate(100, 60)"><ChickenIcon /></g>,
+         <g key="d1" transform="scale(0.4) translate(70, -10)"><DrinkIcon /></g>
+      ];
+   } else if (lower.includes('smart deal')) {
+      items = [
+         <g key="p1" transform="scale(0.5) translate(10, 60)"><PizzaIcon name="generic" size={100} /></g>,
+         <g key="ps1" transform="scale(0.45) translate(110, 70)"><PastaIcon name="generic" size={100} /></g>,
+         <g key="d1" transform="scale(0.4) translate(70, -10)"><DrinkIcon /></g>
+      ];
+   } else if (lower.includes('super deal') || lower.includes('double up deal') || lower.includes('mega deal')) {
+      items = [
+         <g key="p1" transform="scale(0.5) translate(10, 50)"><PizzaIcon name="generic" size={100} /></g>,
+         <g key="p2" transform="scale(0.5) translate(80, 70)"><PizzaIcon name="generic" size={100} /></g>,
+         <g key="d1" transform="scale(0.45) translate(100, -10)"><DrinkIcon /></g>
+      ];
+   } else if (lower.includes('chaska deal')) {
+      items = [
+         <g key="ps1" transform="scale(0.5) translate(10, 60)"><PastaIcon name="generic" size={100} /></g>,
+         <g key="c1" transform="scale(0.5) translate(100, 60)"><ChickenIcon /></g>,
+         <g key="d1" transform="scale(0.4) translate(70, -10)"><DrinkIcon /></g>
+      ];
+   } else if (lower.includes('birth day deal')) {
+      items = [
+         <g key="p1" transform="scale(0.4) translate(0, 60)"><PizzaIcon name="generic" size={100} /></g>,
+         <g key="ps1" transform="scale(0.4) translate(70, 40)"><PastaIcon name="generic" size={100} /></g>,
+         <g key="c1" transform="scale(0.4) translate(130, 80)"><ChickenIcon /></g>,
+         <g key="d1" transform="scale(0.4) translate(100, -20)"><DrinkIcon /></g>
+      ];
+   } else {
+      items = [
+         <g key="b1" transform="scale(0.5) translate(20, 50)"><BurgerIcon name="generic" size={100} /></g>,
+         <g key="f1" transform="scale(0.5) translate(80, 50)"><FriesIcon name="generic" size={100} /></g>
+      ];
+   }
+
+   return (
+      <svg width={size} height={size} viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
+         <DropShadow />
+         {items}
+      </svg>
+   );
+};
 
 export const AnimatedFoodIcon = ({ categoryId, itemName, size = 140 }: { categoryId: string, itemName: string, size?: number }) => {
    const prefix = categoryId.replace(/[0-9]/g, '');
