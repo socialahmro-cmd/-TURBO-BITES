@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaShoppingCart, FaMapMarkerAlt, FaClock, FaTimes, FaPlus, FaMinus, FaTrash, FaSearch, FaFrown, FaArrowUp, FaBars, FaArrowLeft, FaArrowRight, FaMicrophone } from 'react-icons/fa';
 import { menuData } from '../data/menu';
 import { AnimatedFoodIcon } from './components/AnimatedFoodIcon';
+import { FloatingCallButton } from './components/FloatingCallButton';
 
 const formatSize = (s: string) => {
    const m: Record<string, string> = { 'S': 'Small', 'M': 'Medium', 'L': 'Large', 'XL': 'Extra Large', 'Half': 'Half', 'Full': 'Full' };
@@ -377,12 +378,12 @@ export default function Home() {
                          >
                             <div className="row g-3">
                                {[
-                                 { name: 'Pizza', id: 'section-pizzas' },
-                                 { name: 'Burgers', id: 'section-burgers' },
-                                 { name: 'Wraps', id: 'section-wraps' },
-                                 { name: 'Fries', id: 'section-fries' },
-                                 { name: 'Parathas', id: 'section-parathas' },
-                                 { name: 'Pasta', id: 'section-pasta' }
+                                 { name: 'Pizza', id: 'section-pizzas', iconId: 'p' },
+                                 { name: 'Burgers', id: 'section-burgers', iconId: 'b' },
+                                 { name: 'Wraps', id: 'section-wraps', iconId: 'w' },
+                                 { name: 'Fries', id: 'section-fries', iconId: 'f' },
+                                 { name: 'Parathas', id: 'section-parathas', iconId: 'pr' },
+                                 { name: 'Pasta', id: 'section-pasta', iconId: 'ps' }
                                ].map((cat) => (
                                   <div className="col-4 text-center" key={cat.name}>
                                      <motion.div 
@@ -394,7 +395,9 @@ export default function Home() {
                                            setIsMegaMenuOpen(false);
                                         }}
                                      >
-                                        <img src={`/images/${cat.name.toLowerCase()}.png`} alt={cat.name} className="img-fluid rounded-circle mb-2" style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
+                                        <div className="d-flex justify-content-center mb-2">
+                                           <AnimatedFoodIcon categoryId={cat.iconId} itemName="Generic" size={60} />
+                                        </div>
                                         <div className="text-white text-uppercase" style={{ fontSize: '0.9rem' }}>{cat.name}</div>
                                      </motion.div>
                                   </div>
@@ -929,6 +932,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
+      <FloatingCallButton />
     </main>
   );
 }

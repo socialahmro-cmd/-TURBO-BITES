@@ -43,7 +43,7 @@ const DropShadow = () => (
 
 // --- Individual Icons ---
 
-const PizzaIcon = ({ name }: { name: string }) => {
+const PizzaIcon = ({ name, size }: { name: string, size: number }) => {
   const n = name.toLowerCase();
   const isSquare = n.includes('square');
   const isCrown = n.includes('crown');
@@ -63,7 +63,7 @@ const PizzaIcon = ({ name }: { name: string }) => {
       : "M 28 62 Q 33 85, 38 62 M 62 62 Q 67 90, 72 58";
 
   return (
-    <svg width="140" height="140" viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
+    <svg width={size} height={size} viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
       <defs>
          <linearGradient id={`crust-grad-${name.replace(/\s/g,'')}`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor={crustColor1} />
@@ -135,7 +135,7 @@ const PizzaIcon = ({ name }: { name: string }) => {
   );
 };
 
-const BurgerIcon = ({ name }: { name: string }) => {
+const BurgerIcon = ({ name, size }: { name: string, size: number }) => {
   const n = name.toLowerCase();
   const isZinger = n.includes('zinger');
   const isDouble = n.includes('double') || n.includes('big ben');
@@ -145,7 +145,7 @@ const BurgerIcon = ({ name }: { name: string }) => {
   const pattyGrad = isZinger ? ["#F5A623", "#D87A00"] : (isChapli ? ["#3E1A04", "#2A1000"] : ["#5E3013", "#3E1A04"]);
 
   return (
-    <svg width="140" height="140" viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
+    <svg width={size} height={size} viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
       <defs>
          <linearGradient id={`bun-grad-${name.replace(/\s/g,'')}`} x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#F5A623" />
@@ -238,7 +238,7 @@ const BurgerIcon = ({ name }: { name: string }) => {
   );
 };
 
-const FriesIcon = ({ name }: { name: string }) => {
+const FriesIcon = ({ name, size }: { name: string, size: number }) => {
   const n = name.toLowerCase();
   const hasCheese = n.includes('cheese');
   const hasMasala = n.includes('masala') || n.includes('special');
@@ -246,7 +246,7 @@ const FriesIcon = ({ name }: { name: string }) => {
   const isZinger = n.includes('chicken') || n.includes('zinger');
 
   return (
-    <svg width="140" height="140" viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
+    <svg width={size} height={size} viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
       <defs>
          <linearGradient id="fry-grad" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#F8E71C" />
@@ -328,7 +328,7 @@ const FriesIcon = ({ name }: { name: string }) => {
   );
 };
 
-const WrapIcon = ({ name }: { name: string }) => {
+const WrapIcon = ({ name, size }: { name: string, size: number }) => {
   const n = name.toLowerCase();
   const isAchari = n.includes('achari');
   const isWhite = n.includes('malai');
@@ -338,7 +338,7 @@ const WrapIcon = ({ name }: { name: string }) => {
   const fillingColor2 = isZinger ? "#D87A00" : "#5E3013";
 
   return (
-    <svg width="140" height="140" viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
+    <svg width={size} height={size} viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
       <defs>
          <linearGradient id="wrap-grad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#F5A623" />
@@ -400,7 +400,7 @@ const WrapIcon = ({ name }: { name: string }) => {
   );
 };
 
-const PastaIcon = ({ name }: { name: string }) => {
+const PastaIcon = ({ name, size }: { name: string, size: number }) => {
   const n = name.toLowerCase();
   const isCreamy = n.includes('creamy');
   const isCrunchy = n.includes('crunchy');
@@ -410,7 +410,7 @@ const PastaIcon = ({ name }: { name: string }) => {
   const sauceColor2 = isCreamy ? "#F5F5F5" : "#900000";
 
   return (
-    <svg width="140" height="140" viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
+    <svg width={size} height={size} viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
       <defs>
          <linearGradient id="plate-grad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#FFFFFF" />
@@ -495,8 +495,8 @@ const PastaIcon = ({ name }: { name: string }) => {
   );
 };
 
-const DealIcon = ({ name }: { name: string }) => (
-  <svg width="140" height="140" viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
+const DealIcon = ({ name, size }: { name: string, size: number }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" style={{ overflow: 'visible' }}>
      <DropShadow />
      <motion.g
        animate={{ scale: [1, 1.15, 1], rotate: [0, 10, 0, -10, 0] }}
@@ -528,17 +528,17 @@ const DealIcon = ({ name }: { name: string }) => (
   </svg>
 );
 
-export const AnimatedFoodIcon = ({ categoryId, itemName }: { categoryId: string, itemName: string }) => {
+export const AnimatedFoodIcon = ({ categoryId, itemName, size = 140 }: { categoryId: string, itemName: string, size?: number }) => {
    const prefix = categoryId.replace(/[0-9]/g, '');
    
    switch(prefix) {
-      case 'p': return <PizzaIcon name={itemName} />;
-      case 'b': return <BurgerIcon name={itemName} />;
-      case 'f': return <FriesIcon name={itemName} />;
+      case 'p': return <PizzaIcon name={itemName} size={size} />;
+      case 'b': return <BurgerIcon name={itemName} size={size} />;
+      case 'f': return <FriesIcon name={itemName} size={size} />;
       case 'w':
-      case 'pr': return <WrapIcon name={itemName} />;
-      case 'ps': return <PastaIcon name={itemName} />;
-      case 'd': return <DealIcon name={itemName} />;
-      default: return <DealIcon name={itemName} />;
+      case 'pr': return <WrapIcon name={itemName} size={size} />;
+      case 'ps': return <PastaIcon name={itemName} size={size} />;
+      case 'd': return <DealIcon name={itemName} size={size} />;
+      default: return <DealIcon name={itemName} size={size} />;
    }
 };
