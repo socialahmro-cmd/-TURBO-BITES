@@ -33,7 +33,7 @@ const ProductCard = ({ item, setCart, setToastMessage, addToCart }: any) => {
                <div className="position-absolute top-0 start-0 w-100 bg-ember" style={{ height: '4px', top: '-1.5rem', left: '-1.5rem', width: 'calc(100% + 3rem)' }}></div>
                
                <div className="d-flex justify-content-center mb-3">
-                  <AnimatedFoodIcon categoryId={item.id} />
+                  <AnimatedFoodIcon categoryId={item.id} itemName={item.name} />
                </div>
                <div className="d-flex justify-content-between align-items-start mb-2">
                  <h4 className="font-barlow text-white fw-bold m-0 fs-4 tracking-tight">{item.name}</h4>
