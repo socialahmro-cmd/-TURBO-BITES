@@ -78,7 +78,7 @@ export const HeroSection = ({ scrollToMenu }: { scrollToMenu?: () => void }) => 
                   </div>
                   
                   <h1 className="font-bebas text-white display-2 lh-1 mb-4" style={{ letterSpacing: '2px' }}>
-                     SATISFY YOUR CRAVINGS AT <span className="text-ember">TURBO SPEED!</span>
+                     SATISFY YOUR CRAVINGS AT <span className="text-ember">TURBO BITES!</span>
                   </h1>
                   
                   <p className="text-light opacity-75 fs-5 mb-5 lh-base" style={{ maxWidth: '500px' }}>
