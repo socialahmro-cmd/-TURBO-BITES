@@ -5,6 +5,7 @@ import { FaShoppingCart, FaMapMarkerAlt, FaClock, FaTimes, FaPlus, FaMinus, FaTr
 import { menuData } from '../data/menu';
 import { AnimatedFoodIcon } from './components/AnimatedFoodIcon';
 import { FloatingCallButton } from './components/FloatingCallButton';
+import { HeroSection } from './components/HeroSection';
 
 const formatSize = (s: string) => {
    const m: Record<string, string> = { 'S': 'Small', 'M': 'Medium', 'L': 'Large', 'XL': 'Extra Large', 'Half': 'Half', 'Full': 'Full' };
@@ -609,7 +610,9 @@ export default function Home() {
          </AnimatePresence>
       </header>
 
-      <section className="container" style={{ paddingTop: '160px', paddingBottom: '3rem' }} ref={menuRef}>
+      <HeroSection scrollToMenu={() => menuRef.current?.scrollIntoView({ behavior: 'smooth' })} />
+
+      <section className="container" style={{ paddingBottom: '3rem' }} ref={menuRef}>
          
          {/* FOMO Animated Banner */}
          <motion.div 
