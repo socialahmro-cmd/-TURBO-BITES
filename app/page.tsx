@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaShoppingCart, FaMapMarkerAlt, FaClock, FaTimes, FaPlus, FaMinus, FaTrash, FaSearch, FaFrown, FaArrowUp, FaBars, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaShoppingCart, FaMapMarkerAlt, FaClock, FaTimes, FaPlus, FaMinus, FaTrash, FaSearch, FaFrown, FaArrowUp, FaBars, FaArrowLeft, FaArrowRight, FaMicrophone } from 'react-icons/fa';
 import { menuData } from '../data/menu';
 
 const formatSize = (s: string) => {
@@ -104,6 +104,41 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [fomoSeconds, setFomoSeconds] = useState(15 * 60);
   const [isStoreOpen, setIsStoreOpen] = useState(true);
+  const [isListening, setIsListening] = useState(false);
+
+  const startVoiceSearch = () => {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setSearchQuery(transcript);
+        if (!isSearchExpanded) setIsSearchExpanded(true);
+        setIsListening(false);
+      };
+
+      recognition.onerror = () => {
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } else {
+      setToastMessage("Voice search is not supported in this browser.");
+      setTimeout(() => setToastMessage(""), 3000);
+    }
+  };
   const menuRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -394,20 +429,40 @@ export default function Home() {
                      </div>
                      <AnimatePresence>
                         {isSearchExpanded && (
-                           <motion.input 
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              exit={{ opacity: 0 }}
-                              type="text" 
-                              className="form-control bg-transparent border-0 text-white shadow-none fw-bold p-0 pe-3" 
-                              placeholder="Search..." 
-                              value={searchQuery}
-                              onChange={handleSearchChange}
-                              onFocus={() => setIsSearchFocused(true)}
-                              onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
-                              style={{ fontSize: '0.95rem' }}
-                              autoFocus
-                           />
+                           <>
+                              <motion.input 
+                                 initial={{ opacity: 0 }}
+                                 animate={{ opacity: 1 }}
+                                 exit={{ opacity: 0 }}
+                                 type="text" 
+                                 className="form-control bg-transparent border-0 text-white shadow-none fw-bold p-0 pe-1" 
+                                 placeholder="Search..." 
+                                 value={searchQuery}
+                                 onChange={handleSearchChange}
+                                 onFocus={() => setIsSearchFocused(true)}
+                                 onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
+                                 style={{ fontSize: '0.95rem', minWidth: '0' }}
+                                 autoFocus
+                              />
+                              <motion.div
+                                 initial={{ opacity: 0 }}
+                                 animate={{ opacity: 1 }}
+                                 exit={{ opacity: 0 }}
+                                 className="pe-3 d-flex align-items-center justify-content-center"
+                                 style={{ cursor: 'pointer', zIndex: 20 }}
+                                 onMouseDown={(e) => {
+                                    e.preventDefault(); // prevent blur
+                                    startVoiceSearch();
+                                 }}
+                              >
+                                 <motion.div
+                                    animate={isListening ? { scale: [1, 1.2, 1] } : {}}
+                                    transition={{ repeat: Infinity, duration: 1 }}
+                                 >
+                                    <FaMicrophone className={`fs-6 ${isListening ? 'text-danger' : 'text-light opacity-50 nav-link-hover'}`} />
+                                 </motion.div>
+                              </motion.div>
+                           </>
                         )}
                      </AnimatePresence>
                   </motion.div>
