@@ -103,13 +103,26 @@ export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
   const [fomoSeconds, setFomoSeconds] = useState(15 * 60);
+  const [isStoreOpen, setIsStoreOpen] = useState(true);
   const menuRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const checkStoreStatus = () => {
+      const hours = new Date().getHours();
+      // Store open from 10 AM to 4 AM. Closed from 4 AM to 10 AM.
+      setIsStoreOpen(!(hours >= 4 && hours < 10));
+    };
+    checkStoreStatus();
+    const statusTimer = setInterval(checkStoreStatus, 60000);
+    
+    const fomoTimer = setInterval(() => {
       setFomoSeconds(prev => prev > 0 ? prev - 1 : 15 * 60);
     }, 1000);
-    return () => clearInterval(timer);
+    
+    return () => {
+      clearInterval(statusTimer);
+      clearInterval(fomoTimer);
+    };
   }, []);
 
   useEffect(() => {
@@ -551,23 +564,29 @@ export default function Home() {
                <motion.div 
                   className="bg-ember text-white rounded-circle d-flex align-items-center justify-content-center shadow-lg"
                   style={{ width: '45px', height: '45px' }}
-                  animate={{ scale: [1, 1.1, 1] }}
+                  animate={isStoreOpen ? { scale: [1, 1.1, 1] } : {}}
                   transition={{ repeat: Infinity, duration: 1.5 }}
                >
                   <FaClock className="fs-5" />
                </motion.div>
                <div>
-                  <h5 className="font-barlow fw-bold text-light mb-0 text-uppercase">High Demand!</h5>
-                  <p className="text-light opacity-75 small mb-0 fw-bold">Order now to guarantee quick delivery</p>
+                  <h5 className="font-barlow fw-bold text-light mb-0 text-uppercase">
+                     {isStoreOpen ? "High Demand!" : "We Are Currently Closed"}
+                  </h5>
+                  <p className="text-light opacity-75 small mb-0 fw-bold">
+                     {isStoreOpen ? "Order now to guarantee quick delivery" : "We open at 10:00 AM. Pre-plan your cravings!"}
+                  </p>
                </div>
             </div>
 
-            <div className="text-center position-relative z-1">
-               <div className="font-bebas text-ember display-5 lh-1 mb-1" style={{ letterSpacing: '2px' }}>
-                  {Math.floor(fomoSeconds / 60).toString().padStart(2, '0')}:{(fomoSeconds % 60).toString().padStart(2, '0')}
+            {isStoreOpen && (
+               <div className="text-center position-relative z-1">
+                  <div className="font-bebas text-ember display-5 lh-1 mb-1" style={{ letterSpacing: '2px' }}>
+                     {Math.floor(fomoSeconds / 60).toString().padStart(2, '0')}:{(fomoSeconds % 60).toString().padStart(2, '0')}
+                  </div>
+                  <div className="text-uppercase fw-bold small text-light opacity-50" style={{ letterSpacing: '1px' }}>Offer Expires In</div>
                </div>
-               <div className="text-uppercase fw-bold small text-light opacity-50" style={{ letterSpacing: '1px' }}>Offer Expires In</div>
-            </div>
+            )}
          </motion.div>
 
          <AnimatePresence mode="popLayout">
